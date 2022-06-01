@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minesweeper</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="module">
+    import init, { greet } from "./pkg/minesweeper.js";
+    async function main() {
+      await init();
+
+     greet("daiki");
+    }
+    main();
+  </script>
+  
+</body>
+</html>

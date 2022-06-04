@@ -1,5 +1,8 @@
 use crate::random::random_range;
-use std::{collections::HashSet, fmt::Display};
+use std::{
+    collections::HashSet,
+    fmt::{Display, Write},
+};
 
 type Position = (usize, usize);
 
@@ -20,17 +23,24 @@ impl Display for Minesweeper {
         for y in 0..self.height {
             for x in 0..self.width {
                 let pos = (x, y);
-                if self.open_fields.contains(&pos) {
-                    let mine_count = self.neighboring_mines(pos);
-                    write!(f, " {} ", mine_count)?;
+
+                if !self.open_fields.contains(&pos) {
+                    f.write_str("🟪 ")?;
                 } else if self.mines.contains(&pos) {
                     f.write_str("💣 ")?;
                 } else {
-                    f.write_str("⬜ ")?;
+                    let mine_count = self.neighboring_mines(pos);
+
+                    if mine_count > 0 {
+                        write!(f, " {} ", mine_count)?;
+                    } else {
+                        f.write_str("⬜ ")?;
+                    }
                 }
             }
-            f.write_str("\n")?;
+            f.write_char('\n')?;
         }
+
         Ok(())
     }
 }

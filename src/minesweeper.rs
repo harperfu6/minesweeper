@@ -3,12 +3,12 @@ use std::{collections::HashSet, fmt::Display};
 
 type Position = (usize, usize);
 
-enum OpenResult {
+pub enum OpenResult {
     Mine,
     NoMine(u8), // 周りのmineの数を表示する
 }
 
-struct Minesweeper {
+pub struct Minesweeper {
     width: usize,
     height: usize,
     mines: HashSet<Position>,
@@ -36,7 +36,7 @@ impl Display for Minesweeper {
 }
 
 impl Minesweeper {
-    fn new(width: usize, height: usize, mine_count: usize) -> Minesweeper {
+    pub fn new(width: usize, height: usize, mine_count: usize) -> Minesweeper {
         Minesweeper {
             width,
             height,
@@ -66,7 +66,7 @@ impl Minesweeper {
             .count() as u8
     }
 
-    fn open(&mut self, pos: Position) -> OpenResult {
+    pub fn open(&mut self, pos: Position) -> OpenResult {
         self.open_fields.insert(pos); // 開封履歴にいれる
 
         let is_mine = self.mines.contains(&pos);
